@@ -29,8 +29,8 @@ export default function Home() {
         </Box>
 
         <Flex align="center" justify="between" gap="6">
-          {navigation.map(nav => (
-            <Box px="6" py="4" className={`${pathname === nav.url && "border-b-2 border-b-[#FAF9F5]"} cursor-pointer hover:border-b-2 hover:border-b-[#FAF9F5]`}>
+          {navigation.map((nav, idx) => (
+            <Box key={idx} px="6" py="4" className={`${pathname === nav.url && "border-b-2 border-b-[#FAF9F5]"} cursor-pointer hover:border-b-2 hover:border-b-[#FAF9F5]`}>
               <Text className="text-[#FAF9F5] font-bold text-base">{nav.title}</Text>
             </Box>
           ))}
