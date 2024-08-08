@@ -33,7 +33,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  font-family: 'Albert-Sans', 'sans-serif' !important;
+  font-family: sans;
   background: linear-gradient(
       to bottom,
       transparent,

@@ -3,7 +3,7 @@
 import { FC, useState } from "react";
 import { Box, Flex, Text } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
-import { useWindowDimensions } from "@/lib/utility";
+import { useScrollChange, useWindowDimensions } from "@/lib/utility";
 import { IcBars, IcClose } from "@/assets/icons";
 import { motion } from "framer-motion"
 import Image from "next/image";
@@ -25,19 +25,20 @@ const navigation = [{
 const Header: FC = () => {
   //** Hooks */
   const { width } = useWindowDimensions()
+  const { color, bgColor, scroll: isScroll } = useScrollChange()
   const pathname = usePathname()
 
   //** States */
   const [isOpenDrawer, setIsOpenDrawer] = useState<boolean>(false)
 
   return (
-    <Box>
+    <Box className="fixed w-full">
       {width <= 1023 && isOpenDrawer && (<Box onClick={() => setIsOpenDrawer(!isOpenDrawer)} className="w-full h-full bg-[#1E1E1E] opacity-80 absolute z-40" />)}
 
-      <Box width="100%" py="4" className="px-0 allMobile:px-4 md:px-10 w-full max-w-7xl mx-auto bg-transparent">
+      <Box width="100%" py="4" className={`allMobile:px-4 md:px-10 xl:px-28 w-full mx-auto bg-[${bgColor}]`}>
         <Flex align="center" justify="between" gap="5">
           <Box className="cursor-pointer">
-            <Image src="/images/logo.png" width={140} height={90} alt="logo" />
+            <Image src={`${isScroll ? "/images/logo-act.png" : "/images/logo.png"}`} width={140} height={90} alt="logo" />
           </Box>
 
           {width <= 1023 ? (
@@ -73,12 +74,12 @@ const Header: FC = () => {
           ) : (
             <Flex align="center" justify="between" gap="5">
               {navigation.map((nav, idx) => (
-                <Box key={idx} px="6" py="4" className={`${pathname === nav.url && "border-b-2 border-b-[#FAF9F5]"} cursor-pointer hover:border-b-2 hover:border-b-[#FAF9F5]`}>
-                  <Text className="text-[#FAF9F5] font-bold text-base">{nav.title}</Text>
+                <Box key={idx} px="6" py="4" className={`${pathname === nav.url && `border-b-2 border-b-[${color}]`} cursor-pointer hover:border-b-2 hover:border-b-[${color}]`}>
+                  <Text className={`text-[${color}] font-bold text-base`}>{nav.title}</Text>
                 </Box>
               ))}
-              <Box px="6" py="3" className="border-2 border-[#FAF9F5] hover:bg-[#0B7373] hover:border-[#0B7373] transition delay-100 ease-in-out rounded-full cursor-pointer">
-                <Text className="text-[#FAF9F5] font-bold text-base">Need Assistance?</Text>
+              <Box px="6" py="3" className={`group border-2 border-[${color}] hover:bg-[#0B7373] hover:border-[#0B7373] transition delay-100 ease-in-out rounded-full cursor-pointer`}>
+                <Text className={`text-[${isScroll ? "#0B7373" : "#FAF9F5"}] group-hover:text-[#FAF9F5] font-bold text-base transition delay-100 ease-in-out`}>Need Assistance?</Text>
               </Box>
             </Flex>
           )}
