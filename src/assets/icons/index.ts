@@ -1,0 +1,5 @@
+export { default as IcBars } from "./icBars"
+export { default as IcClose } from "./icClose"
+export { default as IcEmail } from "./icEmail"
+export { default as IcFacebook } from "./icFacebook"
+export { default as IcInstagram } from "./icInstagram"

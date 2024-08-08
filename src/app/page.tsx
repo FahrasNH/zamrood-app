@@ -1,44 +1,32 @@
-"use client"
-
+import { Fragment } from "react";
+import { Footer, Header } from "@/components/molecules";
 import { Box, Flex, Text } from "@radix-ui/themes";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
 
-const navigation = [{
-  title: "Homepage",
-  url: "/"
-}, {
-  title: "Customize Your Trip",
-  url: "/#discover-tailored-experiences"
-}, {
-  title: "Destination",
-  url: "/destination"
-}, {
-  title: "Article",
-  url: "/#article"
-}]
-
 export default function Home() {
-  const pathname = usePathname()
-
   return (
-    <Box width="100%" px="120px" py="6" className="bg-slate-500">
-      <Flex align="center" justify="between" gap="5">
-        <Box className="cursor-pointer">
-          <Image src="/images/logo.png" width={140} height={90} alt="logo" />
-        </Box>
+    <Fragment>
+      <Box className="relative h-screen w-full overflow-hidden">
+        <Header />
+        <Image
+          src="/images/jumbotron.png"
+          alt="img"
+          width="0"
+          height="0"
+          sizes="100"
+          className="w-full h-full object-cover object-center top-0 -z-10 absolute" />
 
-        <Flex align="center" justify="between" gap="6">
-          {navigation.map((nav, idx) => (
-            <Box key={idx} px="6" py="4" className={`${pathname === nav.url && "border-b-2 border-b-[#FAF9F5]"} cursor-pointer hover:border-b-2 hover:border-b-[#FAF9F5]`}>
-              <Text className="text-[#FAF9F5] font-bold text-base">{nav.title}</Text>
-            </Box>
-          ))}
-          <Box px="6" py="4" className="border border-[#FAF9F5] rounded-full cursor-pointer">
-            <Text className="text-[#FAF9F5] font-bold text-base">Need Assistance?</Text>
+        <Flex direction="column" className="!justify-center px-0 allMobile:px-4 md:px-10 allMobile:items-center h-5/6 w-full max-w-7xl mx-auto relative">
+          <Text className="allMobile:text-center text-[#D6B66B] font-normal text-9xl allMobile:text-[86px] !leading-[0.3] whitespace-nowrap font-thesignature">Premium Travel</Text>
+          <Text className="allMobile:text-center text-[#FAF9F5] font-bold text-[54px] allMobile:text-2xl mb-2 font-unbounded">Beyond Expectation</Text>
+          <Text className="allMobile:text-center text-[#FAF9F5] font-normal text-2xl allMobile:text-base max-w-[650px]">Experience the finest that Indonesia has to offer with our curated selection of premium trips, ensuring comfort every step of the way</Text>
+          <Box className="text-[#FAF9F5] text-base px-6 py-4 border-2 border-[#FAF9F5] mt-6 font-normal rounded-full max-w-max">
+            Take me there
           </Box>
         </Flex>
-      </Flex>
-    </Box>
+      </Box>
+
+      <Footer />
+    </Fragment>
   );
 }
