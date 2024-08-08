@@ -32,17 +32,17 @@ const Header: FC = () => {
   const [isOpenDrawer, setIsOpenDrawer] = useState<boolean>(false)
 
   return (
-    <Box className="fixed w-full">
-      {width <= 1023 && isOpenDrawer && (<Box onClick={() => setIsOpenDrawer(!isOpenDrawer)} className="w-full h-full bg-[#1E1E1E] opacity-80 absolute z-40" />)}
+    <Box className="fixed allMobile:absolute w-full">
+      {width <= 1023 && isOpenDrawer && (<Box onClick={() => setIsOpenDrawer(!isOpenDrawer)} className="w-full h-screen bg-[#1E1E1E] opacity-80 absolute z-40" />)}
 
       <Box width="100%" py="4" className={`allMobile:px-4 md:px-10 xl:px-28 w-full mx-auto bg-[${bgColor}]`}>
-        <Flex align="center" justify="between" gap="5">
+        <Flex justify="between" gap="5">
           <Box className="cursor-pointer">
             <Image src={`${isScroll ? "/images/logo-act.png" : "/images/logo.png"}`} width={140} height={90} alt="logo" />
           </Box>
 
           {width <= 1023 ? (
-            <Box className="z-50">
+            <Box className="z-50 h-screen">
               <Flex
                 onClick={() => setIsOpenDrawer(!isOpenDrawer)}
                 justify="center" align="center" className="cursor-pointer bg-[#FAF9F5] rounded-full">
