@@ -14,7 +14,6 @@ export default function Home() {
   return (
     <Fragment>
       <Box className="relative h-screen w-full overflow-hidden">
-        <Header />
         <Image
           src="/images/jumbotron.png"
           alt="img"
@@ -51,8 +50,6 @@ export default function Home() {
           ))}
         </Flex>
       </Box>
-
-      <Footer />
     </Fragment>
   );
 }
