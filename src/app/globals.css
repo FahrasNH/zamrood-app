@@ -22,10 +22,15 @@
   --background: 250, 249, 245;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body, .radix-themes {
   color: rgb(var(--foreground-rgb));
   font-family: "Albert-Sans";
   background: rgb(var(--background));
+  
 }
 
 @layer utilities {

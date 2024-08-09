@@ -8,19 +8,21 @@ import { IcBars, IcClose } from "@/assets/icons";
 import { motion } from "framer-motion"
 import Image from "next/image";
 import Button from "@/components/atoms/Button";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const navigation = [{
   title: "Homepage",
   url: "/"
 }, {
   title: "Customize Your Trip",
-  url: "/#discover-tailored-experiences"
+  url: "#discover-tailored-experiences"
 }, {
   title: "Destination",
   url: "/destination"
 }, {
   title: "Article",
-  url: "/#article"
+  url: "#article"
 }]
 
 const Header: FC = () => {
@@ -59,9 +61,9 @@ const Header: FC = () => {
                   </Flex>
                   <Flex justify="start" gap="3" className="flex-col max-w-max">
                     {navigation.map((nav, idx) => (
-                      <Box key={idx} py="4" className={`${pathname === nav.url && "border-b-2 border-b-[#0B7373]"} hover:pl-3 transition-all cursor-pointer`}>
+                      <Link href={nav.url} key={idx} className={`${pathname === nav.url && "border-b-2 border-b-[#0B7373]"} hover:pl-3 py-4 transition-all`}>
                         <Text className="text-[#0B7373] font-bold text-base">{nav.title}</Text>
-                      </Box>
+                      </Link>
                     ))}
                     <Button>
                       Need Assistance?
@@ -73,9 +75,9 @@ const Header: FC = () => {
           ) : (
             <Flex align="center" justify="between" gap="5">
               {navigation.map((nav, idx) => (
-                <Box key={idx} px="6" py="4" className={`${pathname === nav.url && `border-b-2 border-b-[${color}]`} cursor-pointer hover:border-b-2 hover:border-b-[${color}]`}>
+                <Link href={nav.url} key={idx} className={`${pathname === nav.url && `border-b-2 border-b-[${color}]`} px-6 py-4 cursor-pointer hover:border-b-2 hover:border-b-[${color}]`}>
                   <Text className={`text-[${color}] font-bold text-base`}>{nav.title}</Text>
-                </Box>
+                </Link>
               ))}
               <Button className={`border-[${color}] hover:border-[${!isScroll ? "#0B7373" : "#FAF9F5"}] text-[${isScroll ? "#0B7373" : "#FAF9F5"}]`}>
                 Need Assistance?

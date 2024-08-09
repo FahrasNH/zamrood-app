@@ -62,7 +62,7 @@ export default function Home() {
         </Flex>
       </Box>
 
-      <Box className="mt-40 allMobile:mt-20 allMobile:px-4 md:px-10 xl:px-28 w-full">
+      <Box id="discover-tailored-experiences" className="mt-40 allMobile:mt-20 allMobile:px-4 md:px-10 xl:px-28 w-full scroll-mt-28">
         <Flex className="allMobile:flex-col justify-center items-center max-w-[952px] mx-auto gap-6 allMobile:gap-4">
           <Image
             src="/images/img-discover-experience.png"
@@ -247,7 +247,7 @@ export default function Home() {
         </Box>
       </Box>
 
-      <Box className="my-20 allMobile:my-10 allMobile:px-4 md:px-10 xl:px-28 w-full">
+      <Box id="article" className="my-20 allMobile:my-10 allMobile:px-4 md:px-10 xl:px-28 w-full scroll-mt-28">
         <Text as="p" className="text-[#0B7373] text-4xl allMobile:text-[22px] font-bold font-unbounded mb-2">Articles</Text>
         <Text as="p" className="text-[#0B7373] text-2xl allMobile:text-base mb-6">Our curated writings, offering something for every reader.</Text>
 
