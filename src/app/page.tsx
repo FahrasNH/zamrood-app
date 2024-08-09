@@ -2,7 +2,7 @@
 
 import { CardExperience, Footer, Header } from "@/components/molecules";
 import { Box, Flex, Grid, Text } from "@radix-ui/themes";
-import { cardExperiences } from "@/constants/staticConst";
+import { cardExperiences, luxuryFootages } from "@/constants/staticConst";
 import { indFormatter, useWindowDimensions } from "@/lib/utility";
 import { PublicLayout } from "@/components/templates";
 import { IcMore } from "@/assets/icons";
@@ -143,6 +143,84 @@ export default function Home() {
             </Flex>
           ))}
         </Box>
+      </Box>
+
+      <Box className="mt-40 allMobile:mt-20 py-20 allMobile:py-9 allMobile:px-4 md:px-10 xl:px-28 w-full bg-[#D6B66B]">
+        <Text className="text-[#004040] font-normal text-[84px] allMobile:text-[54px] font-thesignature mb-8">Luxury Footages</Text>
+
+        {width <= 1023 ? (
+          <Swiper
+            spaceBetween={30}
+            effect={'fade'}
+            centeredSlides={true}
+            loop={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            modules={[EffectFade, Autoplay]}
+            className="max-h-[390px] allMobile:h-[270px] w-1/2 allMobile:w-full md:w-full"
+          >
+            {luxuryFootages.map((luxuryFootage, idx) => (
+              <SwiperSlide key={idx}>
+                <Image
+                  src={luxuryFootage.imgUrl}
+                  alt="img"
+                  width="0"
+                  height="0"
+                  sizes="100"
+                  className="w-full h-[390px] allMobile:h-[270px] object-cover object-center"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <Box className="relative">
+            <Flex justify="center" align="center" gap="6">
+              {luxuryFootages.slice(0, 3).map((footage, index) => (
+                <Box className="relative w-full aspect-[356/256] cursor-pointer">
+                  <Image
+                    key={index}
+                    src={footage.imgUrl}
+                    alt={`footage-${index}`}
+                    className="w-full h-full object-cover center"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                  />
+                </Box>
+              ))}
+            </Flex>
+
+            <Image
+              src="/images/sparator-white.png"
+              alt="img"
+              width="0"
+              height="0"
+              sizes="100"
+              className="w-full my-6 allMobile:hidden" />
+
+            <Flex justify="center" align="center" gap="6">
+              {luxuryFootages.slice(3, 6).map((footage, index) => (
+                <Box className="relative w-full aspect-[356/256] cursor-pointer">
+                  <Image
+                    key={index}
+                    src={footage.imgUrl}
+                    alt={`footage-${index + 3}`}
+                    className="w-full h-full object-cover center"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                  />
+                </Box>
+              ))}
+            </Flex>
+          </Box>
+        )}
+      </Box>
+
+      <Box className="mt-20 allMobile:mt-10 allMobile:px-4 md:px-10 xl:px-28 w-full">
+
       </Box>
     </PublicLayout>
   );
