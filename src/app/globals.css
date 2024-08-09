@@ -22,9 +22,9 @@
   --background: 250, 249, 245;
 }
 
-body {
+body, .radix-themes {
   color: rgb(var(--foreground-rgb));
-  font-family: sans;
+  font-family: "Albert-Sans";
   background: rgb(var(--background));
 }
 

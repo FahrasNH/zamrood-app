@@ -5,18 +5,22 @@ import { Box, Flex, Grid, Text } from "@radix-ui/themes";
 import { cardExperiences, luxuryFootages } from "@/constants/staticConst";
 import { indFormatter, useWindowDimensions } from "@/lib/utility";
 import { PublicLayout } from "@/components/templates";
-import { IcMore } from "@/assets/icons";
+import { IcArrow, IcMore } from "@/assets/icons";
 import { Products } from "@/types/productTypes";
 import Button from "@/components/atoms/Button";
 import useProducts from "@/hooks/useProducts";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from 'swiper/modules';
+import Link from "next/link";
+import useArticels from "@/hooks/useArticels";
+import { Articles } from "@/types/articleTypes";
 
 export default function Home() {
   //** Hooks */
   const { width } = useWindowDimensions();
-  const { data, isLoading, isFetching } = useProducts(true)
+  const { data: dataProducts, isLoading: isLoadingProduct } = useProducts(true)
+  const { data: dataArticels, isLoading: isLoadingArticel } = useArticels()
 
   return (
     <PublicLayout>
@@ -97,7 +101,7 @@ export default function Home() {
         </Flex>
 
         <Box className="my-20 allMobile:my-10">
-          {!isLoading && data?.data.map((product: Products, idx: number) => (
+          {!isLoadingProduct && dataProducts?.data.map((product: Products, idx: number) => (
             <Flex key={product.itinerary_id} className="allMobile:flex-col md:flex-col lg:flex-row items-center gap-6 allMobile:gap-4 mb-28 allMobile:mb-8 lg:even:flex-row-reverse">
               <Swiper
                 spaceBetween={30}
@@ -222,7 +226,70 @@ export default function Home() {
       </Box>
 
       <Box className="mt-20 allMobile:mt-10 allMobile:px-4 md:px-10 xl:px-28 w-full">
+        <Box
+          className="w-full p-6 flex flex-col lg:flex-row space-y-2 lg:space-y-0 justify-between items-center bg-[lightgray] bg-no-repeat bg-center bg-cover"
+          style={{
+            backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0.36) 100%), url('/images/img-experience.jpeg')`
+          }}
+        >
+          <Image src="/images/logo.png" width={140} height={90} alt="logo" />
 
+          <Box className="flex flex-col space-y-2 lg:space-y-0 justify-center lg:justify-end text-center lg:text-right">
+            <Text as="p" className="text-white text-base">
+              Want to see other destinations? Check us out at our website
+            </Text>
+
+            <Link target="_blank" href="https://pandooin.com" className="text-white inline-flex items-center justify-center lg:justify-end gap-2">
+              <Text as="span" className="text-xl font-bold underline mb-2">pandooin.com</Text>
+              <IcArrow />
+            </Link>
+          </Box>
+        </Box>
+      </Box>
+
+      <Box className="my-20 allMobile:my-10 allMobile:px-4 md:px-10 xl:px-28 w-full">
+        <Text as="p" className="text-[#0B7373] text-4xl allMobile:text-[22px] font-bold font-unbounded mb-2">Articles</Text>
+        <Text as="p" className="text-[#0B7373] text-2xl allMobile:text-base mb-6">Our curated writings, offering something for every reader.</Text>
+
+        <Grid className="allMobile:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
+          <Box>
+            {!isLoadingArticel && (
+              <Link href={`https://pandooin.com/blog/article/${dataArticels?.data[0].slug}`} className="relative">
+                <Image
+                  src={dataArticels?.data[0].featured_image}
+                  alt="img"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="w-full h-[700px] allMobile:h-[350px] object-cover center grayscale hover:grayscale-0 ease-in-out duration-300"
+                />
+                <Text className="absolute bottom-0 text-[#FAF9F5] text-base font-bold p-4 allMobile:p-6 bg-[#0B7373] w-full">{dataArticels?.data[0].title}</Text>
+              </Link>
+            )}
+          </Box>
+          <Grid className="allMobile:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
+            {!isLoadingArticel && dataArticels?.data.slice(1, 5).map((article: Articles, idx: number) => (
+              <Link key={idx} href={`https://pandooin.com/blog/article/${article.slug}`} className="relative">
+                <Image
+                  src={article.featured_image}
+                  alt="img"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="w-full h-full allMobile:h-[350px] object-cover center grayscale hover:grayscale-0 ease-in-out duration-300"
+                />
+                <Box className="p-4 allMobile:p-6 absolute bottom-0 bg-[#0B7373] w-full">
+                  <Text
+                    className="text-[#FAF9F5] text-base font-bold overflow-hidden text-ellipsis whitespace-normal line-clamp-2"
+                    title={article.title}
+                  >
+                    {article.title}
+                  </Text>
+                </Box>
+              </Link>
+            ))}
+          </Grid>
+        </Grid>
       </Box>
     </PublicLayout>
   );
