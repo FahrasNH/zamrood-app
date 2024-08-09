@@ -46,9 +46,9 @@ export default function Home() {
         </Box>
 
         <Flex className="flex-row allMobile:flex-col gap-6 allMobile:gap-4">
-          {cardExperiences.map((experience, idx) => (
+          {cardExperiences.map((experience, index) => (
             <CardExperience
-              key={idx}
+              key={index}
               title={experience.title}
               desc={experience.desc}
               className={width <= 768 ? "w-full" : "w-2/6"}
@@ -178,9 +178,10 @@ export default function Home() {
           <Box className="relative">
             <Flex justify="center" align="center" gap="6">
               {luxuryFootages.slice(0, 3).map((footage, index) => (
-                <Box className="relative w-full aspect-[356/256] cursor-pointer">
+                <Box
+                  key={index}
+                  className="relative w-full aspect-[356/256] cursor-pointer">
                   <Image
-                    key={index}
                     src={footage.imgUrl}
                     alt={`footage-${index}`}
                     className="w-full h-full object-cover center"
@@ -202,9 +203,10 @@ export default function Home() {
 
             <Flex justify="center" align="center" gap="6">
               {luxuryFootages.slice(3, 6).map((footage, index) => (
-                <Box className="relative w-full aspect-[356/256] cursor-pointer">
+                <Box
+                  key={index}
+                  className="relative w-full aspect-[356/256] cursor-pointer">
                   <Image
-                    key={index}
                     src={footage.imgUrl}
                     alt={`footage-${index + 3}`}
                     className="w-full h-full object-cover center"
