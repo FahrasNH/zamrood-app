@@ -112,7 +112,7 @@ export default function Home() {
                 className="max-h-[390px] allMobile:h-[270px] w-1/2 allMobile:w-full md:w-full"
               >
                 {product.related_galleries.map(gallery => (
-                  <SwiperSlide>
+                  <SwiperSlide key={gallery.gallery_id}>
                     <Image
                       src={gallery.src}
                       alt="img"
