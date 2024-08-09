@@ -1,16 +1,22 @@
 "use client"
 
 import { CardExperience, Footer, Header } from "@/components/molecules";
-import { Box, Flex, Text } from "@radix-ui/themes";
-import Image from "next/image";
+import { Box, Flex, Grid, Text } from "@radix-ui/themes";
 import { cardExperiences } from "@/constants/staticConst";
-import { useWindowDimensions } from "@/lib/utility";
+import { indFormatter, useWindowDimensions } from "@/lib/utility";
 import { PublicLayout } from "@/components/templates";
+import { IcMore } from "@/assets/icons";
+import { Products } from "@/types/productTypes";
 import Button from "@/components/atoms/Button";
+import useProducts from "@/hooks/useProducts";
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade } from 'swiper/modules';
 
 export default function Home() {
   //** Hooks */
   const { width } = useWindowDimensions();
+  const { data, isLoading, isFetching } = useProducts(true)
 
   return (
     <PublicLayout>
@@ -27,9 +33,9 @@ export default function Home() {
           <Text className="allMobile:text-center text-[#D6B66B] font-normal text-9xl allMobile:text-[86px] !leading-[0.3] whitespace-nowrap font-thesignature">Premium Travel</Text>
           <Text className="allMobile:text-center text-[#FAF9F5] font-bold text-[54px] allMobile:text-2xl mb-2 font-unbounded">Beyond Expectation</Text>
           <Text className="allMobile:text-center text-[#FAF9F5] font-normal text-2xl allMobile:text-base max-w-[650px]">Experience the finest that Indonesia has to offer with our curated selection of premium trips, ensuring comfort every step of the way</Text>
-          <Box className="text-[#FAF9F5] text-base font-semibold px-6 py-4 border-2 border-[#FAF9F5] hover:border-[#D6B66B] hover:bg-[#D6B66B] transition delay-100 ease-in-out mt-6 rounded-full max-w-max cursor-pointer">
+          <Button variant="secondary" className="mt-6 max-w-max">
             Take me there
-          </Box>
+          </Button>
         </Flex>
       </Box>
 
@@ -79,6 +85,64 @@ export default function Home() {
           height="0"
           sizes="100"
           className="w-full" />
+      </Box>
+
+      <Box className="mt-20 allMobile:mt-10 allMobile:px-4 md:px-10 xl:px-28 w-full">
+        <Flex className="allMobile:flex-col justify-start allMobile:justify-start items-center allMobile:items-start gap-6 allMobile:gap-4">
+          <Text as="div" className="text-[#004040] text-4xl allMobile:text-[22px] font-unbounded font-bold">Destinations</Text>
+          <Flex className="gap-4 justify-start items-center">
+            <IcMore height={width <= 767 ? 40 : 44} width={width <= 767 ? 40 : 44} />
+            <Text className="text-base font-normal allMobile:font-bold">Explore more</Text>
+          </Flex>
+        </Flex>
+
+        <Box className="my-20 allMobile:my-10">
+          {!isLoading && data?.data.map((product: Products, idx: number) => (
+            <Flex key={product.itinerary_id} className="allMobile:flex-col md:flex-col lg:flex-row items-center gap-6 allMobile:gap-4 mb-28 allMobile:mb-8 lg:even:flex-row-reverse">
+              <Swiper
+                spaceBetween={30}
+                effect={'fade'}
+                centeredSlides={true}
+                loop={true}
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+                }}
+                modules={[EffectFade, Autoplay]}
+                className="max-h-[390px] allMobile:h-[270px] w-1/2 allMobile:w-full md:w-full"
+              >
+                {product.related_galleries.map(gallery => (
+                  <SwiperSlide>
+                    <Image
+                      src={gallery.src}
+                      alt="img"
+                      width="0"
+                      height="0"
+                      sizes="100"
+                      className="w-full h-[390px] allMobile:h-[270px] object-cover object-center"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <Box className="w-1/2 allMobile:w-full md:w-full">
+                <Box className="mb-10">
+                  <Text as="p" className="text-[#004040] text-base allMobile:text-xs mb-2 allMobile:mb-1">{`${product.itinerary_day} DAYS ${product.itinerary_day - 1} NIGHTS`}</Text>
+                  <Text as="p" className="text-[#0B7373] text-4xl allMobile:text-base mb-2 font-bold font-unbounded overflow-hidden text-ellipsis whitespace-normal line-clamp-2">{product.itinerary_name}</Text>
+                  <Text as="p" className="text-[#004040] text-base allMobile:text-xs mb-2 font-bold">Organized by Pandooin</Text>
+                  <Text as="p" className="text-[#004040] text-base allMobile:text-xs font-normal">{product.itinerary_short_description}</Text>
+                </Box>
+
+                <Flex justify="between" align="center">
+                  <Box>
+                    <Text as="p" className="text-[#004040] text-base allMobile:text-xs">Start from</Text>
+                    <Text as="p" className="text-[#0B7373] text-[28px] allMobile:text-[18px] font-medium font-unbounded">{indFormatter(Number(product.related_variant.itinerary_variant_pub_price))}</Text>
+                  </Box>
+                  <Button className="px-4 py-5 !flex items-center max-h-5">See Details</Button>
+                </Flex>
+              </Box>
+            </Flex>
+          ))}
+        </Box>
       </Box>
     </PublicLayout>
   );

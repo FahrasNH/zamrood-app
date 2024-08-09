@@ -4,6 +4,8 @@ import ClientProviders from "./clientProviders";
 import { Theme } from "@radix-ui/themes";
 
 import "./globals.css";
+import 'swiper/css';
+import 'swiper/css/effect-fade'
 import '@radix-ui/themes/styles.css';
 
 const inter = Inter({ subsets: ["latin"] });
