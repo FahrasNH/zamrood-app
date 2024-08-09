@@ -1,18 +1,19 @@
 "use client"
 
-import { Fragment } from "react";
 import { CardExperience, Footer, Header } from "@/components/molecules";
 import { Box, Flex, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import { cardExperiences } from "@/constants/staticConst";
 import { useWindowDimensions } from "@/lib/utility";
+import { PublicLayout } from "@/components/templates";
+import Button from "@/components/atoms/Button";
 
 export default function Home() {
   //** Hooks */
   const { width } = useWindowDimensions();
 
   return (
-    <Fragment>
+    <PublicLayout>
       <Box className="relative h-screen w-full overflow-hidden">
         <Image
           src="/images/jumbotron.png"
@@ -32,7 +33,7 @@ export default function Home() {
         </Flex>
       </Box>
 
-      <Box className="my-20 allMobile:my-10 allMobile:px-4 md:px-10 xl:px-28 w-full">
+      <Box className="mt-20 allMobile:mt-10 allMobile:px-4 md:px-10 xl:px-28 w-full">
         <Box className="mb-16 allMobile:mb-4">
           <Text as="div" className="text-[#0B7373] text-[84px] allMobile:text-[54px] text-center font-thesignature !leading-[0.3] whitespace-nowrap">Beyond Premium</Text>
           <Text as="div" className="text-[#004040] text-[32px] allMobile:text-[22px] text-center font-unbounded font-bold">Elevate Your Experience</Text>
@@ -50,6 +51,35 @@ export default function Home() {
           ))}
         </Flex>
       </Box>
-    </Fragment>
+
+      <Box className="mt-40 allMobile:mt-20 allMobile:px-4 md:px-10 xl:px-28 w-full">
+        <Flex className="allMobile:flex-col justify-center items-center max-w-[952px] mx-auto gap-6 allMobile:gap-4">
+          <Image
+            src="/images/img-discover-experience.png"
+            alt="img"
+            width="0"
+            height="0"
+            sizes="100"
+            className="w-[329px] allMobile:w-4/6 h-[302px] allMobile:h-auto" />
+          <Box className="allMobile:text-center">
+            <Text as="div" className="text-[#004040] text-[32px] allMobile:text-[22px] font-unbounded font-bold mb-4 allMobile:mb-2">Discover Tailored Experiences</Text>
+            <Text as="p" className="text-black text-base allMobile:text-sm font-normal mb-4 allMobile:mb-6">Create your own journey, personalized to suit your preferences and interests, ensuring a once-in-a-lifetime adventure awaits.</Text>
+            <Button variant="dark" className="max-w-max allMobile:mx-auto">
+              Customize Your Trip
+            </Button>
+          </Box>
+        </Flex>
+      </Box>
+
+      <Box className="my-20 allMobile:px-4 md:px-10 xl:px-28 w-full">
+        <Image
+          src="/images/sparator-colorfull.png"
+          alt="img"
+          width="0"
+          height="0"
+          sizes="100"
+          className="w-full" />
+      </Box>
+    </PublicLayout>
   );
 }

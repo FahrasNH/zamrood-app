@@ -5,7 +5,6 @@ import { Theme } from "@radix-ui/themes";
 
 import "./globals.css";
 import '@radix-ui/themes/styles.css';
-import PublicLayout from "@/components/templates/publicLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,9 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ClientProviders>
           <Theme>
-            <PublicLayout>
-              {children}
-            </PublicLayout>
+            {children}
           </Theme>
         </ClientProviders>
       </body>

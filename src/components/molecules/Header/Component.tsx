@@ -7,6 +7,7 @@ import { useScrollChange, useWindowDimensions } from "@/lib/utility";
 import { IcBars, IcClose } from "@/assets/icons";
 import { motion } from "framer-motion"
 import Image from "next/image";
+import Button from "@/components/atoms/Button";
 
 const navigation = [{
   title: "Homepage",
@@ -62,15 +63,13 @@ const Header: FC = () => {
                         <Text className="text-[#0B7373] font-bold text-base">{nav.title}</Text>
                       </Box>
                     ))}
-                    <Box px="6" py="3" className="border border-[#0B7373] group hover:bg-[#0B7373] transition delay-100 ease-in-out rounded-full cursor-pointer">
-                      <Text className="text-[#0B7373] group-hover:text-[#FAF9F5] font-bold text-base transition delay-100 ease-in-out">Need Assistance?</Text>
-                    </Box>
+                    <Button>
+                      Need Assistance?
+                    </Button>
                   </Flex>
                 </Box>
               )}
             </Box>
-
-
           ) : (
             <Flex align="center" justify="between" gap="5">
               {navigation.map((nav, idx) => (
@@ -78,9 +77,9 @@ const Header: FC = () => {
                   <Text className={`text-[${color}] font-bold text-base`}>{nav.title}</Text>
                 </Box>
               ))}
-              <Box px="6" py="3" className={`group border-2 border-[${color}] hover:bg-[#0B7373] hover:border-[#0B7373] transition delay-100 ease-in-out rounded-full cursor-pointer`}>
-                <Text className={`text-[${isScroll ? "#0B7373" : "#FAF9F5"}] group-hover:text-[#FAF9F5] font-bold text-base transition delay-100 ease-in-out`}>Need Assistance?</Text>
-              </Box>
+              <Button className={`border-[${color}] hover:border-[${!isScroll ? "#0B7373" : "#FAF9F5"}] text-[${isScroll ? "#0B7373" : "#FAF9F5"}]`}>
+                Need Assistance?
+              </Button>
             </Flex>
           )}
 
