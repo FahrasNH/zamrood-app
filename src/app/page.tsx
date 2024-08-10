@@ -19,7 +19,8 @@ import { Articles } from "@/types/articleTypes";
 export default function Home() {
   //** Hooks */
   const { width } = useWindowDimensions();
-  const { data: dataProducts, isLoading: isLoadingProduct } = useProducts(true)
+  const { data: dataProductHighlights, isLoading: isLoadingProductHighlight } = useProducts(true)
+  const { data: dataAllProducts, isLoading: isLoadingAllProduct } = useProducts(false)
   const { data: dataArticels, isLoading: isLoadingArticel } = useArticels()
 
   return (
@@ -77,7 +78,9 @@ export default function Home() {
             <Text as="div" className="text-[#004040] text-[32px] allMobile:text-[22px] font-unbounded font-bold mb-4 allMobile:mb-2">Discover Tailored Experiences</Text>
             <Text as="p" className="text-black text-base allMobile:text-sm font-normal mb-4 allMobile:mb-6">Create your own journey, personalized to suit your preferences and interests, ensuring a once-in-a-lifetime adventure awaits.</Text>
             <Button variant="dark" className="max-w-max allMobile:mx-auto">
-              Customize Your Trip
+              <Link target="_blank" href="https://pandooin.com/id/tailor-made/create?utm_source=zamrood&utm_medium=website&utm_campaign=premium">
+                Customize Your Trip
+              </Link>
             </Button>
           </Box>
         </Flex>
@@ -103,7 +106,7 @@ export default function Home() {
         </Flex>
 
         <Box className="my-20 allMobile:my-10">
-          {!isLoadingProduct && dataProducts?.data.map((product: Products, idx: number) => (
+          {!isLoadingProductHighlight && dataProductHighlights?.data.map((product: Products, idx: number) => (
             <Flex key={product.itinerary_id} className="allMobile:flex-col md:flex-col lg:flex-row items-center gap-6 allMobile:gap-4 mb-28 allMobile:mb-8 lg:even:flex-row-reverse">
               <Swiper
                 spaceBetween={30}
@@ -148,6 +151,36 @@ export default function Home() {
               </Box>
             </Flex>
           ))}
+
+
+          <Swiper
+            slidesPerView={width <= 767 ? 1.5 : 4}
+            spaceBetween={30}
+            loop={true}
+            className="mySwiper"
+          >
+            {!isLoadingAllProduct && dataAllProducts?.data.map((product: Products) => (
+              <SwiperSlide key={product.itinerary_id}>
+                <Image
+                  src={product.related_galleries[0].src}
+                  alt="img"
+                  width="0"
+                  height="0"
+                  sizes="100"
+                  className="w-full h-[256px] object-cover object-center mb-6"
+                />
+
+                <Box className="w-1/2 allMobile:w-full md:w-full">
+                  <Text as="p" className="text-[#004040] text-xs mb-1">{`${product.itinerary_day} DAYS ${product.itinerary_day - 1} NIGHTS`}</Text>
+                  <Text as="p" className="text-[#0B7373] text-base mb-1 font-bold font-unbounded overflow-hidden text-ellipsis whitespace-normal line-clamp-2">{product.itinerary_name}</Text>
+                  <Text as="p" className="text-[#004040] text-base mb-6 font-bold">Organized by Pandooin</Text>
+                  <Text as="p" className="text-[#004040] text-xs">Start from</Text>
+                  <Text as="p" className="text-[#0B7373] text-base mb-6 font-medium font-unbounded">{indFormatter(Number(product.related_variant.itinerary_variant_pub_price))}</Text>
+                  <Button className="px-4 py-5 !flex items-center max-h-5 max-w-max">See Details</Button>
+                </Box>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </Box>
       </Box>
 

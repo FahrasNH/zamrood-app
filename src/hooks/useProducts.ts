@@ -3,7 +3,7 @@ import axiosClient from '@/lib/axiosClient';
 import { ProductResponse } from '@/types/productTypes';
 
 const fetchProducts = async (highlight: boolean = true): Promise<ProductResponse> => {
-  const response = await axiosClient.get(`/itinerary?highlight=${highlight}`);
+  const response = await axiosClient.get(`/itinerary${highlight ? `?highlight=${highlight}` : ''}`);
   
   return response.data;
 };
