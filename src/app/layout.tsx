@@ -1,11 +1,19 @@
+// Next.js Types
 import type { Metadata } from "next";
+
+// Next.js Fonts
 import { Inter } from "next/font/google";
-import ClientProviders from "./clientProviders";
+
+// Radix UI
 import { Theme } from "@radix-ui/themes";
 
+// Components
+import ClientProviders from "./clientProviders";
+
+// Import Styles
 import "./globals.css";
 import 'swiper/css';
-import 'swiper/css/effect-fade'
+import 'swiper/css/effect-fade';
 import '@radix-ui/themes/styles.css';
 
 const inter = Inter({ subsets: ["latin"] });

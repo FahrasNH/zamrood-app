@@ -1,15 +1,24 @@
 "use client"
 
+// React
 import { FC, useState } from "react";
-import { Box, Flex, Text } from "@radix-ui/themes";
+
+// Next.js
 import { usePathname } from "next/navigation";
-import { useScrollChange, useWindowDimensions } from "@/lib/utility";
-import { IcBars, IcClose } from "@/assets/icons";
-import { motion } from "framer-motion"
 import Image from "next/image";
-import Button from "@/components/atoms/Button";
 import Link from "next/link";
-import { useRouter } from "next/router";
+
+// Radix UI
+import { Box, Flex, Text } from "@radix-ui/themes";
+
+// Custom Hooks
+import { useScrollChange, useWindowDimensions } from "@/lib/utility";
+
+// Assets & Icons
+import { IcBars, IcClose } from "@/assets/icons";
+
+// Components
+import { Button } from "@/components/atoms";
 
 const navigation = [{
   title: "Homepage",

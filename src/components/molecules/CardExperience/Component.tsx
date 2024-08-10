@@ -1,5 +1,10 @@
+// React
 import { FC } from "react";
+
+// Radix UI
 import { Box, Flex, Text } from "@radix-ui/themes";
+
+// Interfaces
 import { CardExperienceProps } from "./interface";
 
 const CardExperience: FC<CardExperienceProps> = ({ title, icon, desc, className }) => {

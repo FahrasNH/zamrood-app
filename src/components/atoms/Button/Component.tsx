@@ -1,6 +1,13 @@
+// React
 import { FC } from "react";
+
+// Radix UI
 import { Box } from "@radix-ui/themes";
+
+// Interfaces
 import { ButtonProps } from "./interface";
+
+// Utility Libraries
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utility";
 

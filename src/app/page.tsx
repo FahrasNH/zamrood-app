@@ -1,20 +1,31 @@
 "use client"
 
-import { CardExperience, Footer, Header } from "@/components/molecules";
-import { Box, Flex, Grid, Text } from "@radix-ui/themes";
+//** Components */
+import { CardExperience } from "@/components/molecules";
+import { PublicLayout } from "@/components/templates";
+import { Button } from "@/components/atoms";
+
+//** Utilities and Constants */
+import { Box, Flex, Grid, Skeleton, Text } from "@radix-ui/themes";
 import { cardExperiences, luxuryFootages } from "@/constants/staticConst";
 import { indFormatter, useWindowDimensions } from "@/lib/utility";
-import { PublicLayout } from "@/components/templates";
+
+//** Icons */
 import { IcArrow, IcMore } from "@/assets/icons";
+
+//** Types */
 import { Products } from "@/types/productTypes";
-import Button from "@/components/atoms/Button";
+import { Articles } from "@/types/articleTypes";
+
+//** Hooks */
 import useProducts from "@/hooks/useProducts";
+import useArticels from "@/hooks/useArticels";
+
+//** Next.js and Third-Party Libraries */
 import Image from "next/image";
+import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from 'swiper/modules';
-import Link from "next/link";
-import useArticels from "@/hooks/useArticels";
-import { Articles } from "@/types/articleTypes";
 
 export default function Home() {
   //** Hooks */
@@ -106,52 +117,73 @@ export default function Home() {
         </Flex>
 
         <Box className="my-20 allMobile:my-10">
-          {!isLoadingProductHighlight && dataProductHighlights?.data.map((product: Products, idx: number) => (
-            <Flex key={product.itinerary_id} className="allMobile:flex-col md:flex-col lg:flex-row items-center gap-6 allMobile:gap-4 mb-28 allMobile:mb-8 lg:even:flex-row-reverse">
-              <Swiper
-                spaceBetween={30}
-                effect={'fade'}
-                centeredSlides={true}
-                loop={true}
-                autoplay={{
-                  delay: 2500,
-                  disableOnInteraction: false,
-                }}
-                modules={[EffectFade, Autoplay]}
-                className="max-h-[390px] allMobile:h-[270px] w-1/2 allMobile:w-full md:w-full"
-              >
-                {product.related_galleries.map(gallery => (
-                  <SwiperSlide key={gallery.gallery_id}>
-                    <Image
-                      src={gallery.src}
-                      alt="img"
-                      width="0"
-                      height="0"
-                      sizes="100"
-                      className="w-full h-[390px] allMobile:h-[270px] object-cover object-center"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+          {isLoadingProductHighlight ? (
+            <Flex className="allMobile:flex-col md:flex-col lg:flex-row items-center gap-6 allMobile:gap-4 mb-28 allMobile:mb-8 lg:even:flex-row-reverse">
+              <Skeleton className="max-h-[390px] h-[390px] allMobile:h-[270px] w-1/2 allMobile:w-full md:w-full" />
               <Box className="w-1/2 allMobile:w-full md:w-full">
                 <Box className="mb-10">
-                  <Text as="p" className="text-[#004040] text-base allMobile:text-xs mb-2 allMobile:mb-1">{`${product.itinerary_day} DAYS ${product.itinerary_day - 1} NIGHTS`}</Text>
-                  <Text as="p" className="text-[#0B7373] text-4xl allMobile:text-base mb-2 font-bold font-unbounded overflow-hidden text-ellipsis whitespace-normal line-clamp-2">{product.itinerary_name}</Text>
-                  <Text as="p" className="text-[#004040] text-base allMobile:text-xs mb-2 font-bold">Organized by Pandooin</Text>
-                  <Text as="p" className="text-[#004040] text-base allMobile:text-xs font-normal">{product.itinerary_short_description}</Text>
+                  <Skeleton className="h-4 allMobile:h-2 w-1/4 mb-2 allMobile:mb-1" />
+                  <Skeleton className="h-8 allMobile:h-4 w-full mb-2" />
+                  <Skeleton className="h-4 allMobile:h-2 w-1/3 mb-2" />
+                  <Skeleton className="h-4 allMobile:h-2 w-3/4" />
                 </Box>
 
                 <Flex justify="between" align="center">
                   <Box>
-                    <Text as="p" className="text-[#004040] text-base allMobile:text-xs">Start from</Text>
-                    <Text as="p" className="text-[#0B7373] text-[28px] allMobile:text-[18px] font-medium font-unbounded">{indFormatter(Number(product.related_variant.itinerary_variant_pub_price))}</Text>
+                    <Skeleton className="h-4 allMobile:h-2 w-1/4 mb-2" />
+                    <Skeleton className="h-6 allMobile:h-3 w-1/3" />
                   </Box>
-                  <Button className="px-4 py-5 !flex items-center max-h-5">See Details</Button>
+                  <Skeleton className="px-4 py-5 !flex items-center max-h-5 w-24" />
                 </Flex>
               </Box>
             </Flex>
-          ))}
+          ) : (
+            dataProductHighlights?.data.map((product: Products, idx: number) => (
+              <Flex key={product.itinerary_id} className="allMobile:flex-col md:flex-col lg:flex-row items-center gap-6 allMobile:gap-4 mb-28 allMobile:mb-8 lg:even:flex-row-reverse">
+                <Swiper
+                  spaceBetween={30}
+                  effect={'fade'}
+                  centeredSlides={true}
+                  loop={true}
+                  autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                  }}
+                  modules={[EffectFade, Autoplay]}
+                  className="max-h-[390px] allMobile:h-[270px] w-1/2 allMobile:w-full md:w-full"
+                >
+                  {product.related_galleries.map(gallery => (
+                    <SwiperSlide key={gallery.gallery_id}>
+                      <Image
+                        src={gallery.src}
+                        alt="img"
+                        width="0"
+                        height="0"
+                        sizes="100"
+                        className="w-full h-[390px] allMobile:h-[270px] object-cover object-center"
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                <Box className="w-1/2 allMobile:w-full md:w-full">
+                  <Box className="mb-10">
+                    <Text as="p" className="text-[#004040] text-base allMobile:text-xs mb-2 allMobile:mb-1">{`${product.itinerary_day} DAYS ${product.itinerary_day - 1} NIGHTS`}</Text>
+                    <Text as="p" className="text-[#0B7373] text-4xl allMobile:text-base mb-2 font-bold font-unbounded overflow-hidden text-ellipsis whitespace-normal line-clamp-2">{product.itinerary_name}</Text>
+                    <Text as="p" className="text-[#004040] text-base allMobile:text-xs mb-2 font-bold">Organized by Pandooin</Text>
+                    <Text as="p" className="text-[#004040] text-base allMobile:text-xs font-normal">{product.itinerary_short_description}</Text>
+                  </Box>
 
+                  <Flex justify="between" align="center">
+                    <Box>
+                      <Text as="p" className="text-[#004040] text-base allMobile:text-xs">Start from</Text>
+                      <Text as="p" className="text-[#0B7373] text-[28px] allMobile:text-[18px] font-medium font-unbounded">{indFormatter(Number(product.related_variant.itinerary_variant_pub_price))}</Text>
+                    </Box>
+                    <Button className="px-4 py-5 !flex items-center max-h-5">See Details</Button>
+                  </Flex>
+                </Box>
+              </Flex>
+            ))
+          )}
 
           <Swiper
             slidesPerView={width <= 767 ? 1.5 : 4}
@@ -159,27 +191,43 @@ export default function Home() {
             loop={true}
             className="mySwiper"
           >
-            {!isLoadingAllProduct && dataAllProducts?.data.map((product: Products) => (
-              <SwiperSlide key={product.itinerary_id}>
-                <Image
-                  src={product.related_galleries[0].src}
-                  alt="img"
-                  width="0"
-                  height="0"
-                  sizes="100"
-                  className="w-full h-[256px] object-cover object-center mb-6"
-                />
+            {isLoadingAllProduct ? (
+              Array.from({ length: 4 }).map((_, idx) => (
+                <SwiperSlide key={idx} className="flex flex-col items-center">
+                  <Skeleton className="w-full h-[256px] mb-6" />
+                  <Box className="w-1/2 allMobile:w-full md:w-full">
+                    <Skeleton className="h-4 w-1/2 mb-1" />
+                    <Skeleton className="h-6 w-full mb-1" />
+                    <Skeleton className="h-4 w-1/3 mb-6" />
+                    <Skeleton className="h-4 w-1/4 mb-2" />
+                    <Skeleton className="h-6 w-1/2 mb-2" />
+                    <Skeleton className="h-10 w-24" />
+                  </Box>
+                </SwiperSlide>
+              ))
+            ) : (
+              dataAllProducts?.data.map((product: Products) => (
+                <SwiperSlide key={product.itinerary_id}>
+                  <Image
+                    src={product.related_galleries[0].src}
+                    alt="img"
+                    width="0"
+                    height="0"
+                    sizes="100"
+                    className="w-full h-[256px] object-cover object-center mb-6"
+                  />
 
-                <Box className="w-1/2 allMobile:w-full md:w-full">
-                  <Text as="p" className="text-[#004040] text-xs mb-1">{`${product.itinerary_day} DAYS ${product.itinerary_day - 1} NIGHTS`}</Text>
-                  <Text as="p" className="text-[#0B7373] text-base mb-1 font-bold font-unbounded overflow-hidden text-ellipsis whitespace-normal line-clamp-2">{product.itinerary_name}</Text>
-                  <Text as="p" className="text-[#004040] text-base mb-6 font-bold">Organized by Pandooin</Text>
-                  <Text as="p" className="text-[#004040] text-xs">Start from</Text>
-                  <Text as="p" className="text-[#0B7373] text-base mb-6 font-medium font-unbounded">{indFormatter(Number(product.related_variant.itinerary_variant_pub_price))}</Text>
-                  <Button className="px-4 py-5 !flex items-center max-h-5 max-w-max">See Details</Button>
-                </Box>
-              </SwiperSlide>
-            ))}
+                  <Box className="w-1/2 allMobile:w-full md:w-full">
+                    <Text as="p" className="text-[#004040] text-xs mb-1">{`${product.itinerary_day} DAYS ${product.itinerary_day - 1} NIGHTS`}</Text>
+                    <Text as="p" className="text-[#0B7373] text-base mb-1 font-bold font-unbounded overflow-hidden text-ellipsis whitespace-normal line-clamp-2">{product.itinerary_name}</Text>
+                    <Text as="p" className="text-[#004040] text-base mb-6 font-bold">Organized by Pandooin</Text>
+                    <Text as="p" className="text-[#004040] text-xs">Start from</Text>
+                    <Text as="p" className="text-[#0B7373] text-base mb-6 font-medium font-unbounded">{indFormatter(Number(product.related_variant.itinerary_variant_pub_price))}</Text>
+                    <Button className="px-4 py-5 !flex items-center max-h-5 max-w-max">See Details</Button>
+                  </Box>
+                </SwiperSlide>
+              ))
+            )}
           </Swiper>
         </Box>
       </Box>
@@ -288,7 +336,11 @@ export default function Home() {
 
         <Grid className="allMobile:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
           <Box>
-            {!isLoadingArticel && (
+            {isLoadingArticel ? (
+              <div className="relative">
+                <Skeleton className="w-full h-[700px] allMobile:h-[350px] object-cover" />
+              </div>
+            ) : (
               <Link target="_blank" href={`https://pandooin.com/blog/article/${dataArticels?.data[0].slug}`} className="relative">
                 <Image
                   src={dataArticels?.data[0].featured_image}
@@ -303,26 +355,34 @@ export default function Home() {
             )}
           </Box>
           <Grid className="allMobile:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
-            {!isLoadingArticel && dataArticels?.data.slice(1, 5).map((article: Articles, idx: number) => (
-              <Link key={idx} target="_blank" href={`https://pandooin.com/blog/article/${article.slug}`} className="relative">
-                <Image
-                  src={article.featured_image}
-                  alt="img"
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  className="w-full h-full allMobile:h-[350px] object-cover center grayscale hover:grayscale-0 ease-in-out duration-300"
-                />
-                <Box className="p-4 allMobile:p-6 absolute bottom-0 bg-[#0B7373] w-full">
-                  <Text
-                    className="text-[#FAF9F5] text-base font-bold overflow-hidden text-ellipsis whitespace-normal line-clamp-2"
-                    title={article.title}
-                  >
-                    {article.title}
-                  </Text>
-                </Box>
-              </Link>
-            ))}
+            {isLoadingArticel ? (
+              Array.from({ length: 4 }).map((_, idx) => (
+                <div key={idx} className="relative">
+                  <Skeleton className="w-full h-full allMobile:h-[350px] object-cover" />
+                </div>
+              ))
+            ) : (
+              dataArticels?.data.slice(1, 5).map((article: Articles, idx: number) => (
+                <Link key={idx} target="_blank" href={`https://pandooin.com/blog/article/${article.slug}`} className="relative">
+                  <Image
+                    src={article.featured_image}
+                    alt="img"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className="w-full h-full allMobile:h-[350px] object-cover center grayscale hover:grayscale-0 ease-in-out duration-300"
+                  />
+                  <Box className="p-4 allMobile:p-6 absolute bottom-0 bg-[#0B7373] w-full">
+                    <Text
+                      className="text-[#FAF9F5] text-base font-bold overflow-hidden text-ellipsis whitespace-normal line-clamp-2"
+                      title={article.title}
+                    >
+                      {article.title}
+                    </Text>
+                  </Box>
+                </Link>
+              ))
+            )}
           </Grid>
         </Grid>
       </Box>

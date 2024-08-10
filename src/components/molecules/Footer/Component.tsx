@@ -1,6 +1,13 @@
+// React
 import { FC } from "react";
+
+// Radix UI
 import { Box, Flex, Text } from "@radix-ui/themes";
+
+// Assets & Icons
 import { IcEmail, IcFacebook, IcInstagram } from "@/assets/icons";
+
+// Next.js
 import Link from "next/link";
 
 const Footer: FC = () => {

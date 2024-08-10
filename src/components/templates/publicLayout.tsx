@@ -1,8 +1,13 @@
 "use client";
 
+// React
 import { Fragment, ReactNode } from 'react';
-import { Footer, Header } from '../molecules';
+
+// Radix UI
 import { Box } from '@radix-ui/themes';
+
+// Components
+import { Footer, Header } from '../molecules';
 
 interface PublicLayoutProps {
   children: ReactNode;
