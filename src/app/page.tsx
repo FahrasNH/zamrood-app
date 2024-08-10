@@ -341,16 +341,18 @@ export default function Home() {
                 <Skeleton className="w-full h-[700px] allMobile:h-[350px] object-cover" />
               </div>
             ) : (
-              <Link target="_blank" href={`https://pandooin.com/blog/article/${dataArticels?.data[0].slug}`} className="relative">
-                <Image
-                  src={dataArticels?.data[0].featured_image}
-                  alt="img"
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  className="w-full h-[700px] allMobile:h-[350px] object-cover center grayscale hover:grayscale-0 ease-in-out duration-300"
-                />
-                <Text className="absolute bottom-0 text-[#FAF9F5] text-base font-bold p-4 allMobile:p-6 bg-[#0B7373] w-full">{dataArticels?.data[0].title}</Text>
+              <Link target="_blank" href={`https://pandooin.com/blog/article/${dataArticels?.data[0].slug}`}>
+                <Box className="relative">
+                  <Image
+                    src={dataArticels?.data[0].featured_image}
+                    alt="img"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className="w-full h-[700px] allMobile:h-[350px] object-cover center grayscale hover:grayscale-0 ease-in-out duration-300"
+                  />
+                  <Text as="div" className="absolute bottom-0 text-[#FAF9F5] text-base font-bold p-4 allMobile:p-6 bg-[#0B7373] w-full">{dataArticels?.data[0].title}</Text>
+                </Box>
               </Link>
             )}
           </Box>
