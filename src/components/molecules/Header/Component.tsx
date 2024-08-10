@@ -66,7 +66,9 @@ const Header: FC = () => {
                       </Link>
                     ))}
                     <Button>
-                      Need Assistance?
+                      <Link target="_blank" href="https://api.whatsapp.com/send/?phone=6283831556160&text=Hi%2C+I+wanna+ask+question+about+Zamrood&type=phone_number&app_absent=0">
+                        Need Assistance?
+                      </Link>
                     </Button>
                   </Flex>
                 </Box>
@@ -80,7 +82,9 @@ const Header: FC = () => {
                 </Link>
               ))}
               <Button className={`border-[${color}] hover:border-[${!isScroll ? "#0B7373" : "#FAF9F5"}] text-[${isScroll ? "#0B7373" : "#FAF9F5"}]`}>
-                Need Assistance?
+                <Link target="_blank" href="https://api.whatsapp.com/send/?phone=6283831556160&text=Hi%2C+I+wanna+ask+question+about+Zamrood&type=phone_number&app_absent=0">
+                  Need Assistance?
+                </Link>
               </Button>
             </Flex>
           )}

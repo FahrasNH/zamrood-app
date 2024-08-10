@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Box, Flex, Text } from "@radix-ui/themes";
 import { IcEmail, IcFacebook, IcInstagram } from "@/assets/icons";
+import Link from "next/link";
 
 const Footer: FC = () => {
   return (
@@ -9,9 +10,15 @@ const Footer: FC = () => {
         <Text className="text-[#FAF9F5] font-light text-base allMobile:text-sm allMobile:text-center">© 2023 Zamrood by PT Teknologi Pandu Wisata</Text>
 
         <Flex align="center" justify="between" gap="6">
-          <IcFacebook />
-          <IcInstagram />
-          <IcEmail />
+          <Link target="_blank" href="https://www.facebook.com/people/Zamrood-by-Pandooin/100094528566390/">
+            <IcFacebook />
+          </Link>
+          <Link target="_blank" href="https://www.instagram.com/zamrood.asia/">
+            <IcInstagram />
+          </Link>
+          <Link target="_blank" href="mailto:fahras.fnh@gmail.com">
+            <IcEmail />
+          </Link>
         </Flex>
       </Flex>
     </Box>

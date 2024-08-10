@@ -38,7 +38,9 @@ export default function Home() {
           <Text className="allMobile:text-center text-[#FAF9F5] font-bold text-[54px] allMobile:text-2xl mb-2 font-unbounded">Beyond Expectation</Text>
           <Text className="allMobile:text-center text-[#FAF9F5] font-normal text-2xl allMobile:text-base max-w-[650px]">Experience the finest that Indonesia has to offer with our curated selection of premium trips, ensuring comfort every step of the way</Text>
           <Button variant="secondary" className="mt-6 max-w-max">
-            Take me there
+            <Link href="#destination">
+              Take me there
+            </Link>
           </Button>
         </Flex>
       </Box>
@@ -91,7 +93,7 @@ export default function Home() {
           className="w-full" />
       </Box>
 
-      <Box className="mt-20 allMobile:mt-10 allMobile:px-4 md:px-10 xl:px-28 w-full">
+      <Box id="destination" className="mt-20 allMobile:mt-10 allMobile:px-4 md:px-10 xl:px-28 w-full scroll-mt-28">
         <Flex className="allMobile:flex-col justify-start allMobile:justify-start items-center allMobile:items-start gap-6 allMobile:gap-4">
           <Text as="div" className="text-[#004040] text-4xl allMobile:text-[22px] font-unbounded font-bold">Destinations</Text>
           <Flex className="gap-4 justify-start items-center">
@@ -254,7 +256,7 @@ export default function Home() {
         <Grid className="allMobile:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
           <Box>
             {!isLoadingArticel && (
-              <Link href={`https://pandooin.com/blog/article/${dataArticels?.data[0].slug}`} className="relative">
+              <Link target="_blank" href={`https://pandooin.com/blog/article/${dataArticels?.data[0].slug}`} className="relative">
                 <Image
                   src={dataArticels?.data[0].featured_image}
                   alt="img"
@@ -269,7 +271,7 @@ export default function Home() {
           </Box>
           <Grid className="allMobile:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
             {!isLoadingArticel && dataArticels?.data.slice(1, 5).map((article: Articles, idx: number) => (
-              <Link key={idx} href={`https://pandooin.com/blog/article/${article.slug}`} className="relative">
+              <Link key={idx} target="_blank" href={`https://pandooin.com/blog/article/${article.slug}`} className="relative">
                 <Image
                   src={article.featured_image}
                   alt="img"
